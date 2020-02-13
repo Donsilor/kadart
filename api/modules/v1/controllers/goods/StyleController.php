@@ -54,7 +54,7 @@ class StyleController extends OnAuthController
         $page = \Yii::$app->request->post("page",1);//页码
         $page_size = \Yii::$app->request->post("page_size",20);//每页大小
         
-        $order = $sort_map[$sort] ?? '';
+        $order = $sort_map[$sort] ?? 's.created_at desc';
         
         $fields = ['s.id','s.style_sn','lang.style_name','s.style_image','s.sale_price','s.goods_clicks'];
         $query = Style::find()->alias('s')->select($fields)
