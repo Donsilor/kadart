@@ -14,6 +14,7 @@ use common\enums\StatusEnum;
 use common\models\goods\Type;
 use common\models\goods\TypeLang;
 use common\helpers\StringHelper;
+use common\models\goods\GoodsType;
 
 /**
  * Class ProvincesController
@@ -63,7 +64,13 @@ class StyleController extends OnAuthController
             ->orderby($order);
         
         if($type_id) {
-            $query->andWhere(['=','s.type_id',$type_id]);
+            $sub_type_ids = GoodsType::find()->select(['id'])->where(['pid'=>$type_id])->asArray()->all();
+            if(!empty($sub_type_ids)){
+                $type_id = array_column($sub_type_ids, 'id');
+                $query->andWhere(['in','s.type_id',$type_id]);
+            }else{
+                $query->andWhere(['=','s.type_id',$type_id]);
+            }
         }
         if($keyword) {
             $query->andWhere(['or',['like','lang.style_name',$keyword],['=','s.style_sn',$keyword]]);
