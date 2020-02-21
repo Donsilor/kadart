@@ -64,7 +64,7 @@ class StyleController extends OnAuthController
             ->orderby($order);
         
         if($type_id) {
-            $sub_type_ids = GoodsType::find()->select(['id'])->where(['pid'=>$type_id])->asArray()->all();
+            $sub_type_ids = GoodsType::find()->select(['id'])->where(['pid'=>$type_id,'status'=>StatusEnum::ENABLED])->asArray()->all();
             if(!empty($sub_type_ids)){
                 $type_id = array_column($sub_type_ids, 'id');
                 $query->andWhere(['in','s.type_id',$type_id]);
@@ -115,7 +115,7 @@ class StyleController extends OnAuthController
             }            
             $query->andWhere(['in','s.id',$subQuery]);
         }
-        echo $query->createCommand()->getSql();exit();
+        //echo $query->createCommand()->getSql();exit();
         $result = $this->pagination($query,$page,$page_size);
         
         foreach($result['data'] as & $val) {
