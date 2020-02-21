@@ -115,7 +115,7 @@ class StyleController extends OnAuthController
             }            
             $query->andWhere(['in','s.id',$subQuery]);
         }
-        echo $query->createCommand()->getSql();exit;
+        echo $query->createCommand()->getSql();exit();
         $result = $this->pagination($query,$page,$page_size);
         
         foreach($result['data'] as & $val) {
