@@ -29,13 +29,14 @@ class ImageHelper
      * @param int $width 宽度 默认45px
      * @param int $height 高度 默认45px
      */
-    public static function fancyBox($imgSrc, $width = 45, $height = 45)
+    public static function fancyBox($imgSrc, $width = 50, $height = 50)
     {
-        $image = Html::img($imgSrc, [
+        
+        $thumb = $imgSrc."?x-oss-process=image/auto-orient,1/resize,m_lfit,w_{$width}/quality,q_90";
+        $image = Html::img($thumb, [
             'width' => $width,
             'height' => $height,
         ]);
-
         return Html::a($image, $imgSrc, [
             'data-fancybox' => 'gallery'
         ]);
@@ -78,21 +79,63 @@ class ImageHelper
 
         return false;
     }
-    
-    public static function thumb($image ,$tag = '')
+    /**
+     * 商品缩略图
+     * @param unknown $godos_image
+     * @param string $size
+     * @return string
+     */
+    public static function goodsThumb($image,$size = '')
+    {
+        if($size == 'small'){
+            return self::thumb($image,200,200);
+        }elseif($size == 'mid') {
+            return self::thumb($image,400,400);
+        }else if($size == 'big'){
+            return self::thumb($image,800,800);
+        }else{
+            return self::thumb($image);
+        }
+    }
+    /**
+     * 批量缩略图
+     * @param unknown $images
+     * @param string $size
+     * @return string or array 
+     */
+    public static function goodsThumbs($images,$size = '')
     {   
-          if(empty($image)) {
-              $image = \Yii::$app->params['defaultImage'];
-          }          
-          
-          return $image;
+        $is_array = is_array($images);
+        $images = $is_array == false ? explode(',',$images):$images;
+        if(!empty($images) && is_array($images)){
+            foreach ($images as $k=> $image){
+                $images[$k] = self::goodsThumb($image,$size);
+            }
+        }
+        $images = $is_array == false?join(',',$images) : $images;
+        return $images;
+    }
+    /**
+     * 缩略图
+     * @param unknown $image
+     * @param string $width
+     * @param string $height
+     * @return string
+     */
+    public static function thumb($image ,$width = '',$height = '')
+    {   
+        if($width > 0) {
+            $height = $width;
+            $image .= "?x-oss-process=style/{$width}X{$height}";
+        }        
+        return $image;
     }
     
-    public static function thumbs($images ,$tag = '')
+    public static function thumbs($images ,$width = '',$height = '')
     {
         if(!empty($images) && is_array($images)){
             foreach ($images as &$image){
-                self::thumb($image,$tag);
+                self::thumb($image,$width,$height);
             }
         }        
         return $images;

@@ -122,7 +122,7 @@ class StyleController extends OnAuthController
             
             $val['url'] = '/goods-'.StringHelper::parseCatgory($val['style_name']).'/'.$val['id'];
             $val['currency'] = $this->getCurrencySign(); 
-            $val['style_image'] = ImageHelper::thumb($val['style_image']);
+            $val['style_image'] = ImageHelper::goodsThumb($val['style_image'],'mid');
         } 
         $seo = [
              'meta_title'=>'Quality gold,silver jewelry wholesale at factory price',
@@ -178,8 +178,8 @@ class StyleController extends OnAuthController
         if($model->goods_images) {
             $goods_images = explode(",",$model->goods_images);
             $goods_images = [
-                    'big'=>ImageHelper::thumbs($goods_images),
-                    'thumb'=>ImageHelper::thumbs($goods_images),
+                'big'=>ImageHelper::goodsThumbs($goods_images,'big'),
+                'thumb'=>ImageHelper::goodsThumbs($goods_images,'small'),
             ];
         }else{
             $goods_images = [];
@@ -225,7 +225,7 @@ class StyleController extends OnAuthController
         $models = $query->limit(10)->asArray()->all();
         foreach ($models as &$model){
             $model['url'] = '/goods-'.StringHelper::parseCatgory($model['style_name']).'/'.$model['id'];
-            $model['style_image'] = ImageHelper::thumb($model['style_image']);
+            $model['style_image'] = ImageHelper::goodsThumb($model['style_image'],'mid');
             $model['currency'] = $this->currencySign;
         }
         return $models;        
