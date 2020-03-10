@@ -76,20 +76,6 @@ return [
                     'GET v1/<module>/<action>' => 'v1/<module>/<action>',
                     'POST v1/<module>/<controller>/<action>' => 'v1/<module>/<controller>/<action>',
                     'GET v1/<module>/<controller>/<action>' => 'v1/<module>/<controller>/<action>',
-                    
-                    'POST <module>/<action>' => '<module>/<action>',
-                    'GET  <module>/<action>' => '<module>/<action>',
-                        
-                    'POST web/<module>/<action>' => 'web/<module>/<action>',
-                    'GET web/<module>/<action>' => 'web/<module>/<action>',
-                    'POST web/<module>/<controller>/<action>' => 'web/<module>/<controller>/<action>',
-                    'GET web/<module>/<controller>/<action>' => 'web/<module>/<controller>/<action>',
-
-
-                    'POST wap/<module>/<action>' => 'wap/<module>/<action>',
-                    'GET wap/<module>/<action>' => 'wap/<module>/<action>',
-                    'POST wap/<module>/<controller>/<action>' => 'wap/<module>/<controller>/<action>',
-                    'GET wap/<module>/<controller>/<action>' => 'wap/<module>/<controller>/<action>',
                 ],
         ],        
     ],
