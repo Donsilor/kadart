@@ -3,19 +3,19 @@ return [
     'adminEmail' => 'admin@example.com',
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
-    'defaultImage'=>'https://bddco.oss-cn-hongkong.aliyuncs.com/images/2019/12/14/image_157631778355995698.jpg', 
+    'frontBaseUrl' =>'https://www.kadart.com',//前端地址
     'languages'=>[
         'zh-CN'=>'简体中文',
         'zh-TW'=>'繁体中文',
         'en-US'=>'English',
     ],
     'language'=>'zh-CN',//默认语言    
-    'currency' =>'CNY',//当前货币代号
-    'currencyBase' =>'CNY',//基础货币代号
-    'currencySign' =>'CNY',//当前货币符号
+    'currency' =>'USD',//当前货币代号
+    'currencyBase' =>'USD',//基础货币代号
+    'currencySign' =>'USD',//当前货币符号
     'cachePrefix'=>'common',//缓存前缀
     'goodsType.diamond'=>15,//裸钻产品线
-    'frontBaseUrl' =>'https://www2.bddco.com',//前端地址
+    
     // 是否在模块内
     'inAddon' => false,
     // 多商户开启
