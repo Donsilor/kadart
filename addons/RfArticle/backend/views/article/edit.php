@@ -43,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]
                 ]); ?>
-                <?= $form->field($model, 'description')->textarea(); ?>
+                <?= $form->field($model, 'seo_key')->textarea(); ?>
+                <?= $form->field($model, 'seo_content')->textarea(); ?>
                 <?= $form->field($model, 'content')->widget(\common\widgets\ueditor\UEditor::class) ?>
                 <div class="row">
                     <div class="col-lg-12">

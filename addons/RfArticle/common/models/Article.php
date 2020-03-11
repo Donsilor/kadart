@@ -57,7 +57,7 @@ class Article extends \common\models\base\BaseModel
     public function rules()
     {
         return [
-            [['title', 'cover', 'sort'], 'required'],
+            [['title', 'cover','cate_id','sort'], 'required'],
             [['merchant_id', 'cate_id', 'view', 'sort', 'status', 'updated_at'], 'integer'],
             [['content'], 'string'],
             [['position', 'created_at', 'tags'], 'safe'],
@@ -78,8 +78,8 @@ class Article extends \common\models\base\BaseModel
             'id' => 'ID',
             'title' => '标题',
             'cover' => '封面',
-            'seo_key' => 'Seo Key',
-            'seo_content' => 'Seo Content',
+            'seo_key' => '关键词',
+            'seo_content' => '简介',
             'tags' => '标签',
             'cate_id' => '分类',
             'description' => '简介',
