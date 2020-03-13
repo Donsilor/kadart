@@ -2,7 +2,10 @@
 
 namespace api\modules\v1\controllers\article;
 
+use addons\RfArticle\common\models\ArticleCate;
+use common\helpers\ImageHelper;
 use common\helpers\ResultHelper;
+use common\helpers\StringHelper;
 use yii\data\ActiveDataProvider;
 use common\enums\StatusEnum;
 use addons\RfArticle\common\models\Article;
@@ -53,6 +56,24 @@ class ArticleController extends OnAuthController
         ->orderBy('sort asc, id desc');
 
         $result = $this->pagination($query,$page,$page_size);
+        $result['pid'] = $pid;
+        $result['category_name'] = '';
+        if($pid){
+            $model = ArticleCate::find()
+                ->where(['status' => StatusEnum::ENABLED])
+                ->andWhere(['id'=>$pid])
+                ->andWhere(['merchant_id' => \Yii::$app->services->merchant->getId()])
+                ->select(['id','title','pid'])
+                ->one();
+            $result['pid'] = $model->id;
+            $result['category_name'] = $model->title;
+        }
+
+
+        foreach($result['data'] as & $val) {
+            $val['url'] = '/article-'.StringHelper::parseCatgory($val['title']).'/'.$val['id'];
+            $val['img'] = ImageHelper::goodsThumb($val['cover'],'mid');
+        }
         return $result;
 
     }

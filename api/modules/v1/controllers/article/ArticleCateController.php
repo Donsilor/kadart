@@ -6,6 +6,7 @@ use addons\RfArticle\common\models\ArticleCate;
 use api\controllers\OnAuthController;
 use common\enums\StatusEnum;
 use common\helpers\ArrayHelper;
+use common\helpers\StringHelper;
 
 /**
  * 文章分类
@@ -29,7 +30,32 @@ class ArticleCateController extends OnAuthController
 
 
     public function actionIndex(){
-        $pid = \Yii::$app->request->get('pid',0);
+        $id = \Yii::$app->request->get('id',0);
+        $result = array(
+            'pid'=>'',
+            'title'=>'',
+        );
+        if($id){
+            $model =  ArticleCate::find()->alias('m')
+                ->leftJoin(ArticleCate::tableName()." as a",'a.pid = m.id')
+                ->where(['m.status' => StatusEnum::ENABLED])
+                ->andWhere(['a.id'=>$id])
+                ->andWhere(['m.merchant_id' => \Yii::$app->services->merchant->getId()])
+                ->select(['m.id','m.title','m.pid'])
+                ->one();
+            if($model){
+                $pid = $model->id;
+                $result = array(
+                    'pid'=>$model->id,
+                    'title'=>$model->title,
+                );
+            }
+
+        }else{
+            $pid = 0;
+        }
+
+
         $cates = ArticleCate::find()
             ->where(['status' => StatusEnum::ENABLED])
             ->andWhere(['merchant_id' => \Yii::$app->services->merchant->getId()])
@@ -37,9 +63,14 @@ class ArticleCateController extends OnAuthController
             ->asArray()
             ->all();
         foreach ($cates as &$cate){
-            $cate['url'] = '';
+            $cate['url'] = 'article-cate/'.StringHelper::parseCatgory($cate['title']).'/'.$cate['id'];
         }
-        return ArrayHelper::itemsMerge($cates,$pid);
+        $list =  ArrayHelper::itemsMerge($cates,$pid);
+        $result['lists'] = $list;
+
+
+        return $result;
+
     }
     /**
      * 权限验证
