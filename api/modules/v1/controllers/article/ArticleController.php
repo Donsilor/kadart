@@ -43,17 +43,18 @@ class ArticleController extends OnAuthController
         $keyword = \Yii::$app->request->get('keyword');
         $page = \Yii::$app->request->get("page",1);//页码
         $page_size = \Yii::$app->request->get("page_size",20);//每页大小
-        $query = $this->modelClass::find()
-            ->where(['status' => StatusEnum::ENABLED])
-            ->andFilterWhere(['merchant_id' => $this->getMerchantId()]);
+        $query = $this->modelClass::find()->alias('a')
+            ->leftJoin(ArticleCate::tableName()." as c",'a.cate_id=c.id')
+            ->where(['a.status' => StatusEnum::ENABLED])
+            ->andFilterWhere(['a.merchant_id' => $this->getMerchantId()]);
         if($pid){
-            $query->andFilterWhere(['cate_id'=>$pid]);
+            $query->andFilterWhere(['a.cate_id'=>$pid]);
         }
         if($keyword){
-            $query->andFilterWhere(['or',['like','title',$keyword],['like','seo_content',$keyword],['like','content',$keyword]]);
+            $query->andFilterWhere(['or',['like','a.title',$keyword],['like','a.seo_content',$keyword],['like','a.content',$keyword]]);
         }
-        $query->select(['id', 'title', 'cover', 'seo_content', 'view'])
-        ->orderBy('sort asc, id desc');
+        $query->select(['a.id', 'a.title','c.title as category_name', 'a.cover', 'a.seo_content', 'a.view'])
+        ->orderBy('a.sort asc, a.id desc');
 
         $result = $this->pagination($query,$page,$page_size);
         $result['pid'] = $pid;
@@ -71,7 +72,8 @@ class ArticleController extends OnAuthController
 
 
         foreach($result['data'] as & $val) {
-            $val['url'] = '/article-'.StringHelper::parseCatgory($val['title']).'/'.$val['id'];
+
+            $val['url'] = StringHelper::parseCatgory($val['category_name']).'/'.StringHelper::parseCatgory($val['title']);
             $val['img'] = ImageHelper::goodsThumb($val['cover'],'mid');
         }
         return $result;
