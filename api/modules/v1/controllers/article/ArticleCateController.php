@@ -63,7 +63,7 @@ class ArticleCateController extends OnAuthController
             ->asArray()
             ->all();
         foreach ($cates as &$cate){
-            $cate['url'] = StringHelper::parseCatgory($cate['title']);
+            $cate['url'] = "news-".StringHelper::parseCatgory($cate['title'])."/id=".$cate['id'];
         }
         $list =  ArrayHelper::itemsMerge($cates,$pid,$idField = "id", $pidField = 'pid', $child = 'items');
         $result['lists'] = $list;
