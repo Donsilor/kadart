@@ -73,7 +73,7 @@ class ArticleController extends OnAuthController
 
         foreach($result['data'] as & $val) {
 
-            $val['url'] = '/news-'.StringHelper::parseCatgory($val['category_name']).'/'.StringHelper::parseCatgory($val['title'])."/id_".$val['id'];
+            $val['url'] = '/news-'.StringHelper::parseCatgory($val['category_name']).'/'.StringHelper::parseCatgory(substr($val['title'],70))."_".$val['id'];
             $val['img'] = ImageHelper::goodsThumb($val['cover'],'mid');
         }
         return $result;
