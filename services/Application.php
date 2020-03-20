@@ -58,6 +58,7 @@ use common\components\Service;
  * @property \services\common\AdvertService $advert 广告位
  * @property \services\common\CurrencyService $currency 货币汇率
  * @property \services\order\OrderService $order 订单
+ * @property \services\article\ArticleService $article 文章
  */
 class Application extends Service
 {
@@ -137,7 +138,9 @@ class Application extends Service
         'diamondSource' => 'services\goods\DiamondSourceService',
         'advert' => 'services\common\AdvertService',    
         /*********订单相关*********/
-        'order' => 'services\order\OrderService', 
+        'order' => 'services\order\OrderService',
+
+        'article' => 'services\article\ArticleService',
 
     ];
 }

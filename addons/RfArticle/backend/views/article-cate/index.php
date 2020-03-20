@@ -44,6 +44,14 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             }
                         ],
                         [
+                            'attribute' => '前台地址',
+                            'value'=>function($mode){
+                                if($mode->level != 3) return '';
+                                return Yii::$app->params['frontBaseUrl'].Yii::$app->services->article->getArticleCateUrl($mode->id);
+                            },
+                            'headerOptions' => ['width'=>'250'],
+                        ],
+                        [
                             'attribute' => 'sort',
                             'format' => 'raw',
                             'headerOptions' => ['class' => 'col-md-1'],

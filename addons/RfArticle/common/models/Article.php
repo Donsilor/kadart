@@ -57,11 +57,11 @@ class Article extends \common\models\base\BaseModel
     public function rules()
     {
         return [
-            [['title', 'cover','cate_id','sort'], 'required'],
+            [['title', 'cate_id','sort'], 'required'],
             [['merchant_id', 'cate_id', 'view', 'sort', 'status', 'updated_at'], 'integer'],
             [['content'], 'string'],
-            [['position', 'created_at', 'tags'], 'safe'],
-            [['title', 'seo_key'], 'string', 'max' => 50],
+            [['position', 'created_at','cover', 'tags'], 'safe'],
+            [['title', 'seo_key'], 'string', 'max' => 255],
             [['cover', 'link'], 'string', 'max' => 100],
             [['seo_content'], 'string', 'max' => 1000],
             [['description'], 'string', 'max' => 140],

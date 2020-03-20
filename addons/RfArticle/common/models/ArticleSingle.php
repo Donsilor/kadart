@@ -45,7 +45,7 @@ class ArticleSingle extends \common\models\base\BaseModel
             [['title', 'cover'], 'required'],
             [['content'], 'string'],
             [['merchant_id', 'display', 'view', 'sort', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'seo_key'], 'string', 'max' => 50],
+            [['title', 'seo_key'], 'string', 'max' => 255],
             [['name', 'author'], 'string', 'max' => 40],
             [['seo_content'], 'string', 'max' => 1000],
             [['cover', 'link'], 'string', 'max' => 100],

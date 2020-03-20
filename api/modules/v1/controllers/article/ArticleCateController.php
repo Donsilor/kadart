@@ -63,8 +63,9 @@ class ArticleCateController extends OnAuthController
             ->asArray()
             ->all();
         foreach ($cates as &$cate){
-            $cate['url'] = "/news-".StringHelper::parseCatgory($cate['title'])."/".$cate['id'];
+            $cate['url'] = \Yii::$app->services->article->getArticleCateUrl($cate['id']);
         }
+
         $list =  ArrayHelper::itemsMerge($cates,$pid,$idField = "id", $pidField = 'pid', $child = 'items');
         $result['lists'] = $list;
 

@@ -39,6 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             )
                         ],
+
+                        [
+                            'attribute'=> '前台地址',
+                            'filter' => false,
+                            'value'=>function($mode){
+                                return Yii::$app->params['frontBaseUrl'].Yii::$app->services->article->getArticleUrl($mode->id);
+                            },
+                            'headerOptions' => ['width'=>'250'],
+                        ],
                         [
                             'attribute' => 'sort',
                             'filter' => false, //不显示搜索框
