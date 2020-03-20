@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                 return $str;
                             }
                         ],
+                        'id',
                         [
                             'attribute' => '前台地址',
                             'value'=>function($mode){
