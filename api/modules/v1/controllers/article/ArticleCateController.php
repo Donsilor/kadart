@@ -60,6 +60,7 @@ class ArticleCateController extends OnAuthController
             ->where(['status' => StatusEnum::ENABLED])
             ->andWhere(['merchant_id' => \Yii::$app->services->merchant->getId()])
             ->select(['id','title','pid'])
+            ->orderBy('sort asc')
             ->asArray()
             ->all();
         foreach ($cates as &$cate){
