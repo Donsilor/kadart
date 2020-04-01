@@ -196,6 +196,11 @@ class StyleController extends OnAuthController
                 'goods_3ds'=>$model->style_3ds,
                 'style_attrs' =>$attr_list,
                 'goods_body'=>$model->lang->goods_body
+				'seo' =>[
+					'meta_title'=>$model->lang->meta_title,
+					'meta_word'=>$model->lang->meta_word,
+					'meta_desc'=>$model->lang->meta_desc,
+				 ]
         ];
         $model->goods_clicks = new Expression("goods_clicks+1");
         $model->virtual_clicks = new Expression("virtual_clicks+1");
