@@ -195,7 +195,7 @@ class StyleController extends OnAuthController
                 'goods_images'=>$goods_images,
                 'goods_3ds'=>$model->style_3ds,
                 'style_attrs' =>$attr_list,
-                'goods_body'=>$model->lang->goods_body
+                'goods_body'=>$model->lang->goods_body,
 				'seo' =>[
 					'meta_title'=>$model->lang->meta_title,
 					'meta_word'=>$model->lang->meta_word,
