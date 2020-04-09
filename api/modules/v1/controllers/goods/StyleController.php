@@ -35,13 +35,13 @@ class StyleController extends OnAuthController
     public function actionSearch()
     {
         $sort_map = [
-            "1_0"=>'s.sale_price asc ,s.id desc',//销售价
+            "1_0"=>'s.sale_price asc ,s.id asc',//销售价
             "1_1"=>'s.sale_price desc ,s.id desc',
-            "2_0"=>'s.goods_clicks asc ,s.id desc',//浏览量
+            "2_0"=>'s.goods_clicks asc ,s.id asc',//浏览量
             "2_1"=>'s.goods_clicks desc ,s.id desc',
-            "3_0"=>'s.onsale_time asc ,s.id desc',//上架时间
+            "3_0"=>'s.onsale_time asc ,s.id asc',//上架时间
             "3_1"=>'s.onsale_time desc ,s.id desc',
-            "4_0"=>'s.rank asc ,s.id desc',//权重
+            "4_0"=>'s.rank asc ,s.id asc',//权重
             "4_1"=>'s.rank desc ,s.id desc',
         ];
         
